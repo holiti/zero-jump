@@ -17,15 +17,15 @@ extern const short
          WINDOW_H = 20,
          DELAY_MAX = 30,
          DELAY_MIN = 10,
-         DELAY_DIFF = 5,
+         DELAY_DIFF = 4,
          DIED_DELAY = 500,
-         DISTANCE_MAX = 125,
-         DISTANCE_MIN = 25,
-         DISTANCE_DIFF = 25, 
+         DISTANCE_MAX = 80,
+         DISTANCE_MIN = 20,
+         DISTANCE_DIFF = 12, 
          PERS_X = 20,
          PERS_Y = 20,
-         SCORE_F = 20,
-         LEVEL_F = 5000,
+         SCORE_F = 5,
+         LEVEL_F = 1000,
          JUMP = 6;
 
 extern const char 
