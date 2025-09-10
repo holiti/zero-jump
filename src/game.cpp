@@ -94,7 +94,8 @@ void Game::ahead(){
 }
 
 void Game::jump(){
-    pers.jump();
+    if(game_state == state::start)
+        pers.jump();
 }
 
 char Game::whatis(short x, short y){
