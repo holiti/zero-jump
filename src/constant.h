@@ -26,7 +26,11 @@ extern const short
          PERS_Y = 20,
          SCORE_F = 5,
          LEVEL_F = 1000,
-         JUMP = 6;
+         JUMP = 6,
+         ATTEMPTS_N = 10,
+         TIME_BUFF = 20;
+
+extern const char* const TIME_FORM = "%y.%m.%d - %H:%M";
 
 extern const char 
     CHARPERS = '0',
