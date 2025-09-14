@@ -12,28 +12,78 @@
 #ifndef CONSTANT
 #define CONSTANT
 
-extern const short 
-         WINDOW_W = 100,
-         WINDOW_H = 20,
-         DELAY_MAX = 30,
-         DELAY_MIN = 10,
-         DELAY_DIFF = 4,
-         DIED_DELAY = 500,
-         DISTANCE_MAX = 80,
-         DISTANCE_MIN = 20,
-         DISTANCE_DIFF = 12, 
-         PERS_X = 20,
-         PERS_Y = 20,
-         SCORE_F = 5,
-         LEVEL_F = 1000,
-         JUMP = 6,
-         ATTEMPTS_N = 10,
-         TIME_BUFF = 20;
+#define WINDOW_W        101
+#define WINDOW_H        20
+#define DELAY_MAX       30
+#define DELAY_MIN       10
+#define DELAY_DIFF      4
+#define DIED_DELAY      500
+#define DISTANCE_MAX    80
+#define DISTANCE_MIN    20
+#define DISTANCE_DIFF   12
+#define PERS_X          20
+#define PERS_Y          20
+#define SCORE_F         5
+#define LEVEL_F         1000
+#define JUMP            6
+#define ATTEMPTS_N      10
+#define TIME_BUFF       20
 
-extern const char* const TIME_FORM = "%y.%m.%d - %H:%M";
+#define OBST_N          7
+#define OBST_W          5
+#define OBST_H          4
 
-extern const char 
-    CHARPERS = '0',
-    CHAROBST = '#';
+const char* const TIME_FORM = "%y.%m.%d - %H:%M";
+
+const char 
+    CHARPERS =      '0',
+    CHAROBST =      '#';
+
+//obstacle template
+const char obstemp[OBST_N][OBST_H][OBST_W + 1] =
+{
+    {
+        " #   ",
+        " #   ",
+        " ##  ",
+        "# ## "
+    },
+    {
+        "  #  ",
+        "###  ",
+        "# ## ",
+        "# # #"
+    },
+    {
+        "     ",
+        "  #  ",
+        " ### ",
+        " # # "
+    },
+    {
+        "  #  ",
+        " ### ",
+        " # ##",
+        "### #"
+    },
+    {
+        "     ",
+        "     ",
+        "  #  ",
+        " ### "
+    },
+    {
+        "     ",
+        " ##  ",
+        "# ## ",
+        "## ##"
+    },
+    {
+        "     ",
+        "     ",
+        " ### ",
+        "# ###"
+    }
+};
 
 #endif
