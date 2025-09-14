@@ -2,21 +2,24 @@
 #define ATTEMPTS
 
 #include "constant.h"
+
 #include <ctime>
 #include <fstream>
+#include <sstream>
+#include <string>
+#include <iostream>
 
-extern const short ATTEMPTS_N, TIME_BUFF;
 extern const char* const TIME_FORM;
 
 class Attempt{
-    tm* ctime;
+    tm ctime;
     int score;
 public:
     Attempt();
     Attempt(int);
 
     void swap(Attempt& );
-    char* toString() const;
+    std::string toString() const;
 
     bool operator< (const Attempt& ) const;
 
@@ -24,14 +27,13 @@ public:
 };
 
 class AttManager{
-    char* filename;
     short size;
     Attempt atp[ATTEMPTS_N];
 public:
     AttManager();
     
     void addAtt(int);
-    char* getAtt(int) const;
+    std::string getAtt(int) const;
 
     ~AttManager();
 };

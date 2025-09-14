@@ -1,7 +1,7 @@
 #include "attempts.h"
 
 Attempt::Attempt():
-    ctime(nullptr),score(0)
+    score(0)
 {
 }
 
@@ -10,11 +10,11 @@ Attempt::Attempt(int ascore):
 {
     time_t cur; 
     time(&cur);
-    ctime = localtime(&cur); 
+    ctime = *localtime(&cur); 
 }
 
 void Attempt::swap(Attempt &b){
-    tm* buff = ctime;
+    tm buff = ctime;
     ctime = b.ctime;
     b.ctime = buff;
 
@@ -23,26 +23,41 @@ void Attempt::swap(Attempt &b){
     b.score = buff1;
 }
 
-char* Attempt::toString() const{
+std::string Attempt::toString() const{
     char* buff = new char[TIME_BUFF]; 
-    strftime(buff, TIME_BUFF, TIME_FORM, ctime);
-    return buff;
+    strftime(buff, TIME_BUFF, TIME_FORM, &ctime);
+    
+    std::stringstream ss;
+    ss << buff << " score: "; 
+
+    for(int x = 1000000,cur = score;x > 0;x /= 10){
+        ss << cur / x;
+        cur = cur % x; 
+    }
+
+    delete[] buff;
+
+    return ss.str();
 }
 
 bool Attempt::operator< (const Attempt& b) const{
-    return score < b.score;
+    if(score != b.score)
+        return score < b.score;
+
+    time_t t1 = mktime(const_cast<tm*>(&ctime));
+    time_t t2 = mktime(const_cast<tm*>(&b.ctime));
+
+    return t1 < t2;
 }
 
 Attempt::~Attempt(){
-    delete ctime;
 }
 
 AttManager::AttManager(){
-    filename = "../data/attempts.bin";
-    std::ifstream in(filename, std::ios::binary);
+    std::ifstream in("../data/attempts.bin", std::ios::binary);
 
     in.read(reinterpret_cast<char*> (&size), sizeof(short));
-    in.read(reinterpret_cast<char*> (atp), ATTEMPTS_N * sizeof(AttManager));
+    in.read(reinterpret_cast<char*> (atp), size * sizeof(AttManager));
 
     in.close();
 }
@@ -66,18 +81,17 @@ void AttManager::addAtt(int score){
         cur.swap(atp[x]);
 }
 
-char* AttManager::getAtt(int index) const{
+std::string AttManager::getAtt(int index) const{
     return atp[index].toString();
 }
 
 AttManager::~AttManager(){
-    std::ofstream out(filename, std::ios::binary);
+    std::ofstream out("../data/attempts.bin", std::ios::binary);
 
     out.write(reinterpret_cast<char*>(&size), sizeof(short));
-    out.write(reinterpret_cast<char*>(atp), ATTEMPTS_N * sizeof(Attempt));
+    out.write(reinterpret_cast<char*>(atp), size * sizeof(Attempt));
 
     out.close();
-    delete filename;
 }
 
 
