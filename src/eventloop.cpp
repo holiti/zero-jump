@@ -22,10 +22,34 @@ void EventLoop::process(){
     if(ch == 0)
         return; //buffer clear
     
-    if(ch == ' ')
-        game.jump();
-    else if(ch == 'q' || ch == 's')
-        window.click(ch);
+    window_state cur = window.getState();
+    switch (ch){
+        case ' ':
+            game.jump();
+        break;
+
+        case 'q':
+            window.setState(window_state::menu);
+
+            if(cur == window_state::play)
+                game.stopGame();
+            else if(cur == window_state::menu)
+                exit(0);
+        break;
+
+        case 's':
+            if(cur != window_state::play){
+                window.setState(window_state::play);
+                game.startGame();
+            } 
+        break;
+
+        case 'l':
+            if(cur != window_state::play){
+                window.setState(window_state::list);
+            }
+        break;
+    }
 }
 
 EventLoop::~EventLoop(){

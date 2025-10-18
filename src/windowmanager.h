@@ -3,22 +3,28 @@
 
 //#define DEBUG
 
+#include "constant.h"
+
 #include "game.h"
+#include "attempts.h"
 #include <iostream>
 
-extern const short
-    WINDOW_H,
-    WINDOW_W,
-    JUMP;
-
+extern AttManager atm;
+class Game;
 extern Game game;
 
+enum window_state {play, menu, list};
+
 class WindowManager{
-    void drawLine(); //drawing line
+    window_state winstate;
+    void drawLine(int); //drawing line
 public:
     WindowManager();
-    void click(char);   //emulate click
-    void Rander();      //rander game 
+    window_state getState() const;
+    void setState(window_state); //set winstate
+    void RanderGame();
+    void RanderList();
+    void Rander();      //rander window
 };
 
 #endif

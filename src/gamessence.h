@@ -1,10 +1,9 @@
 #ifndef GAMESSENCE
 #define GAMESSENCE
 
+#include "constant.h"
+
 //PERSON SEGMENT
-extern const short
-        JUMP,
-        PERS_X;
 
 class Person{
     short x;
@@ -22,15 +21,6 @@ public:
 
 //OBSTACLE SEGMENT
 #include<random>
-extern const short 
-    WINDOW_H;
-
-const short
-         OBST_N = 7,
-         OBST_W = 5,
-         OBST_H = 4;
-
-
 
 class Obstacle{
     //for random template
@@ -47,51 +37,5 @@ public:
     bool outScreen();   //check if obstacle out of screen
 };
 
-//obstacle template
-const char obstemp[OBST_N][OBST_H][OBST_W + 1] = 
-{
-    {
-        " #   ",
-        " #   ",
-        " ##  ",
-        "# ## "
-    },
-    {
-        "  #  ",
-        "###  ",
-        "# ## ",
-        "# # #"
-    },
-    {
-        "     ",
-        "  #  ",
-        " ### ",
-        " # # "
-    },
-    {
-        "  #  ",
-        " ### ",
-        " # ##",
-        "### #"
-    },
-    {
-        "     ",
-        "     ",
-        "  #  ",
-        " ### "
-    },
-    {
-        "     ",
-        " ##  ",
-        "# ## ",
-        "## ##"
-    },
-    {
-        "     ",
-        "     ",
-        " ### ",
-        "# ###"
-    }
-};
 
 #endif

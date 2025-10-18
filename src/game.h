@@ -6,31 +6,19 @@
     #include<iostream>
 #endif
 
+#include "constant.h"
+
 #include <random>
 #include <deque>
 #include <thread>
 #include <chrono>
 #include "gamessence.h"
+#include "windowmanager.h"
+#include "attempts.h"
 
-extern const short
-    DELAY_MAX,
-    DELAY_MIN,
-    DELAY_DIFF,
-    DISTANCE_MAX,
-    DISTANCE_MIN,
-    DISTANCE_DIFF,
-    SCORE_F,
-    LEVEL_F,
-    DIED_DELAY,
-    PERS_Y,
-    OBST_H,
-    OBST_W,
-    WINDOW_W;
-
-extern const char
-    CHARPERS,
-    CHAROBST;
-
+extern AttManager atm;
+class WindowManager;
+extern WindowManager window;
     
 class Game{
     enum state {start, stop};
@@ -59,7 +47,7 @@ public:
     bool isPlay();      //1 if game_state == state::start
     void ahead();       //push path to one position(one frame)
     void jump();        //emulate jump 
-    void stopGame();    //stop game 
+    void stopGame();    //stop game and store attempt
     short getScore();   //return game score
     char whatis(short, short); //return what characher in (x,y)
     short getDelay(); //return delay between frame

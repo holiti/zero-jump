@@ -12,7 +12,7 @@
 #ifndef CONSTANT
 #define CONSTANT
 
-#define WINDOW_W        101
+#define WINDOW_W        100
 #define WINDOW_H        20
 #define DELAY_MAX       30
 #define DELAY_MIN       10
@@ -26,21 +26,21 @@
 #define SCORE_F         5
 #define LEVEL_F         1000
 #define JUMP            6
-#define ATTEMPTS_N      10
 #define TIME_BUFF       20
 
 #define OBST_N          7
 #define OBST_W          5
 #define OBST_H          4
 
-const char* const TIME_FORM = "%y.%m.%d - %H:%M";
+#define ATTEMPTS_N      10
+#define ATTEMPTS_DIST   10
+#define TIME_FORM       "%d.%m.%y - %H:%M"
 
-const char 
-    CHARPERS =      '0',
-    CHAROBST =      '#';
+#define CHARPERS        '0'
+#define CHAROBST        '#'
 
 //obstacle template
-const char obstemp[OBST_N][OBST_H][OBST_W + 1] =
+constexpr char obstemp[OBST_N][OBST_H][OBST_W + 1] =
 {
     {
         " #   ",

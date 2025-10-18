@@ -9,8 +9,6 @@
 #include <string>
 #include <iostream>
 
-extern const char* const TIME_FORM;
-
 class Attempt{
     tm ctime;
     int score;

@@ -1,33 +1,27 @@
 #include "windowmanager.h"
 
-WindowManager::WindowManager(){
+WindowManager::WindowManager()
+    :winstate(window_state::menu){
 }
-void WindowManager::drawLine(){
+
+void WindowManager::drawLine(int size){
     std::cout << ' ';
-    for(int x = 0;x < WINDOW_W;++x)
+    for(int x = 0;x < size;++x)
         std::cout << '-';
     std::cout << " \n";
 }
 
-void WindowManager::click(char button){
-    if(button == 'q'){
-        if(game.isPlay())
-            game.stopGame();
-        else
-            exit(0);
-    }
-
-    if(button == 's' && !game.isPlay())
-        game.startGame();
+void WindowManager::setState(window_state c){
+    winstate = c;
 }
 
-void WindowManager::Rander(){
-#ifdef DEBUG
-    std::cout << "Start randering\n";
-#endif
-    std::system("clear");
+window_state WindowManager::getState() const {
+    return winstate;
+}
 
-    drawLine();
+void WindowManager::RanderGame(){
+    drawLine(WINDOW_W);
+
     for(int x = 1;x <= WINDOW_H - JUMP;++x){
         std::cout << '|';
         for(int y = 0;y < WINDOW_W;++y)
@@ -42,33 +36,55 @@ void WindowManager::Rander(){
         std::cout << "|\n";
     }
 
-    drawLine();
+    drawLine(WINDOW_W);
+}
 
-    int len;
-    if(game.isPlay()){
-        std::cout << "q - Quit";
-        len = 8;
+void WindowManager::RanderList(){
+    drawLine(30 + ATTEMPTS_DIST);
+
+    for(int x = 0 ; x < ATTEMPTS_N; ++x){
+        std::cout << '|' << atm.getAtt(x) << "|\n";
+    }
+
+    drawLine(30 + ATTEMPTS_DIST);
+}
+
+void WindowManager::Rander(){
+#ifdef DEBUG
+    std::cout << "Start randering\n";
+#endif
+    std::system("clear");
+
+    if(winstate != window_state::list)
+        RanderGame();
+    else
+        RanderList();
+
+    int sz;
+    if(winstate != window_state::menu){
+        sz = 8;
+        std::cout << "q - quet";
     }else{
-        std::cout << "s - Start";
-        len = 9;
+        sz = 14;
+        std::cout << "s - start game";
     }
 
-    for(int y = len;y <= WINDOW_W - 6;++y)
-        std::cout << ' ';
+    if(winstate != window_state::list){
+        for(int x = 0;x < WINDOW_W - sz - 6;++x)
+            std::cout << ' ';
 
-    char score[] = "000000";
-    int i = 5,current = game.getScore();
-    while(i >= 0 && current){
-        score[i] = (current % 10) + '0';
-        current /= 10;
-        --i;
+        for(int x = 1e6, cur = game.getScore();x > 0;x /= 10){
+            std::cout << cur / x;
+            cur %= x;
+        }
     }
-    std::cout << score << '\n';
+    std::cout << '\n';
 
-    if(!game.isPlay())
-        std::cout << "q - Quit game\n";
+    if(winstate == window_state::menu){
+        std::cout << "l - list of attempt\n" << "q - quit game\n";
+    }
 
-    std::cout.flush(); 
+    std::cout.flush();
 }
 
     

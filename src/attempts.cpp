@@ -28,8 +28,12 @@ std::string Attempt::toString() const{
     strftime(buff, TIME_BUFF, TIME_FORM, &ctime);
     
     std::stringstream ss;
-    ss << buff << " score: "; 
+    ss << buff; 
 
+    for(int x = 0;x < ATTEMPTS_DIST;++x)
+        ss << ' ';
+
+    ss << "score: ";
     for(int x = 1000000,cur = score;x > 0;x /= 10){
         ss << cur / x;
         cur = cur % x; 
@@ -54,7 +58,7 @@ Attempt::~Attempt(){
 }
 
 AttManager::AttManager(){
-    std::ifstream in("../data/attempts.bin", std::ios::binary);
+    std::ifstream in("data/attempts.bin", std::ios::binary);
 
     in.read(reinterpret_cast<char*> (&size), sizeof(short));
     in.read(reinterpret_cast<char*> (atp), size * sizeof(AttManager));
@@ -67,7 +71,7 @@ void AttManager::addAtt(int score){
 
     int x; 
     for(x = 0;x < size;++x){
-        if(cur < atp[x]){
+        if(atp[x] < cur){
             break;
         }
     }
@@ -86,7 +90,7 @@ std::string AttManager::getAtt(int index) const{
 }
 
 AttManager::~AttManager(){
-    std::ofstream out("../data/attempts.bin", std::ios::binary);
+    std::ofstream out("data/attempts.bin", std::ios::binary);
 
     out.write(reinterpret_cast<char*>(&size), sizeof(short));
     out.write(reinterpret_cast<char*>(atp), size * sizeof(Attempt));

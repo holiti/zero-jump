@@ -19,6 +19,7 @@ bool Game::isPlay(){
 }
 
 void Game::stopGame(){
+    //clear state
     game_state = state::stop;
     distance = DISTANCE_MAX;
     time = DELAY_MAX;
@@ -35,6 +36,9 @@ void Game::stopGame(){
     lastpos += rand(gen);
     path.push_back(Obstacle(lastpos));
     lastpos += OBST_W - 1;
+    
+    //save attempt
+    atm.addAtt(score);
 }
 
 void Game::nextLevel(){
@@ -89,6 +93,7 @@ void Game::ahead(){
 
     if(whatis(pers.cordX(), PERS_Y) != CHARPERS){
         std::this_thread::sleep_for(std::chrono::milliseconds(DIED_DELAY));
+        window.setState(window_state::menu); //say window that game end
         this->stopGame();
     }
 }
