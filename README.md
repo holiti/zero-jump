@@ -1,5 +1,7 @@
 # Zero game
-![[2025-10-22-211701_hyprshot.png]]![[2025-10-22-211712_hyprshot.png]]
+![img1](image/2025-10-22-211701_hyprshot.png)
+
+![img2](image/2025-10-22-211712_hyprshot.png)
 
 
 # Settings
